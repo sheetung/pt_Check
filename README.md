@@ -1,3 +1,15 @@
+# PT_CHECK
+
+一款为pt站点提供每日签到的脚本
+
+目前支持
+
+1. ptlover
+2. 青蛙
+
+<p align="center"> <img src="./figs/ptlover.jpg" alt="ptlover" width="400"> </p>
+<p align="center"> <img src="./figs/qingw.jpg" alt="青蛙" width="400"> </p>
+
 ### 🛠 使用方法
 
 #### 1. 安装依赖
@@ -14,6 +26,8 @@ beautifulsoup4
 ```
 
 **建议headers中的内容在浏览器中F12自己获取**
+
+如果签到成功但是并未通知，请检查钉钉机器人的关键词配置
 
 由于还未完成自动添加为青龙任务，需要手动添加
 
