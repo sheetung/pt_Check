@@ -13,13 +13,18 @@ pip install -r requirements.txt
 beautifulsoup4
 ```
 
+**建议headers中的内容在浏览器中F12自己获取**
+
+由于还未完成自动添加为青龙任务，需要手动添加
+
 #### 2. 设置环境变量
 
 你可以通过 `.env` 文件、系统环境变量，或 GitHub Actions `secrets` 设置以下变量：
 
 | 环境变量名        | 说明                                              |
 | ----------------- | ------------------------------------------------- |
-| `PTLOVER_COOKIES` | 多账号 Cookie，多个账号使用 `&` 分隔              |
+| `PTLOVER_COOKIES` | 用于爱猫站点，多账号 Cookie，多个账号使用 `&` 分隔              |
+| `QINGWA_COOKIES` | 用于青蛙站点，多账号 Cookie，多个账号使用 `&` 分隔              |
 | `BARK_PUSH`       | Bark 推送地址，例如：https://api.day.app/your_key |
 | `BARK_SOUND`      | Bark 推送音效（可选）                             |
 | `DD_BOT_TOKEN`    | 钉钉机器人 token                                  |
