@@ -81,15 +81,15 @@ class QingwaClient:
             current_bonus = int(current_match.group(1)) if current_match else 0
 
             # 总蝌蚪数量
-            bonus_text = soup.find('font', class_='color_bonus', string='蝌蚪')
             total_bonus = 0.0
-            if bonus_text:
-                next_sibling = bonus_text.find_next_sibling(string=True, recursive=True)
-                if next_sibling:
-                    match = re.search(r':\s*([\d,.]+)', next_sibling)
-                    if match:
-                        total_bonus = float(match.group(1).replace(',', ''))
-            
+            bonus_font = soup.find('font', class_='color_bonus', string=lambda text: text and '蝌蚪' in text)
+            if bonus_font:
+                # 获取font标签的父节点，在父节点的所有内容中查找数字
+                parent_html = str(bonus_font.parent)
+                total_match = re.search(r'蝌蚪.*?:\s*([\d.]+)', parent_html)
+            if total_match:
+                total_bonus = float(total_match.group(1))
+                
             # 每日排名
             rank_match = re.search(r'今日签到排名：\s*<b>\s*(\d+)\s*</b>\s*/\s*<b>\s*(\d+)\s*</b>', html)
             rank = f"{rank_match.group(1)}/{rank_match.group(2)}" if rank_match else "未知"
