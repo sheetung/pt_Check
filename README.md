@@ -25,7 +25,7 @@ pip install -r requirements.txt
 beautifulsoup4
 ```
 
-青龙中以来添加方法：依赖管理-->Python3-->创建依赖-->添加名称`BeautifulSoup4`
+青龙中依赖添加方法：依赖管理-->Python3-->创建依赖-->添加名称`BeautifulSoup4`
 
 > [!TIP]
 >
@@ -38,7 +38,7 @@ beautifulsoup4
 
 #### 2. 设置环境变量
 
-你可以通过 `.env` 文件、系统环境变量，或 GitHub Actions `secrets` 设置以下变量：
+在青龙环境变量中天下如下需要签到和通知的变量
 
 | 环境变量名        | 说明                                              |
 | ----------------- | ------------------------------------------------- |
