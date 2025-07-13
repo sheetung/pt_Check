@@ -80,15 +80,15 @@ class QingwaClient:
             current_match = re.search(r'本次签到获得\s*<b>\s*(\d+)\s*</b>\s*个蝌蚪', html)
             current_bonus = int(current_match.group(1)) if current_match else 0
 
-            # 总蝌蚪数量
-            total_bonus = 0.0
+            # 总蝌蚪数量（保留原始格式，不转换为浮点数）
+            total_bonus = "0.0"  # 默认值改为字符串类型
             bonus_font = soup.find('font', class_='color_bonus', string=lambda text: text and '蝌蚪' in text)
             if bonus_font:
-                # 获取font标签的父节点，在父节点的所有内容中查找数字
                 parent_html = str(bonus_font.parent)
-                total_match = re.search(r'蝌蚪.*?:\s*([\d.]+)', parent_html)
-            if total_match:
-                total_bonus = float(total_match.group(1))
+                # 匹配包含逗号和小数点的数值（如 "2,058.0"）
+                total_match = re.search(r'蝌蚪.*?:\s*([\d,.]+)', parent_html)
+                if total_match:
+                    total_bonus = total_match.group(1)  # 直接使用原始匹配结果（保留逗号）
                 
             # 每日排名
             rank_match = re.search(r'今日签到排名：\s*<b>\s*(\d+)\s*</b>\s*/\s*<b>\s*(\d+)\s*</b>', html)
@@ -131,7 +131,7 @@ def send_bark_notification(results):
             line = f"🐸 账号{i}（{res['user']}）\n"
             line += f"✅ 签到{res['days']}天 (连续{res['consecutive_days']}天) 排名[{res['rank']}]\n"
             line += f"本次获得蝌蚪: {res['current_bonus']}个\n"
-            line += f"总蝌蚪数量: {res['total_bonus']:,.1f}个"
+            line += f"总蝌蚪数量: {res['total_bonus']}个"
         else:
             line = f"🚫 账号{i}（{res['user']}）签到失败\n❌ {res['message']}"
         body_lines.append(line)
@@ -164,7 +164,7 @@ def send_dingtalk_notification(results):
             text += f"- ✅ 签到天数: **{res['days']}** 天 (连续 **{res['consecutive_days']}** 天)\n"
             text += f"- 🏆 排名: **{res['rank']}**\n"
             text += f"- 🪙 本次获得蝌蚪: **{res['current_bonus']}** 个\n"
-            text += f"- 🐸 总蝌蚪数量: **{res['total_bonus']:,.1f}** 个\n\n"
+            text += f"- 🐸 总蝌蚪数量: **{res['total_bonus']}** 个\n\n"
         else:
             text += f"**🚫 账号{i}（{res['user']}）签到失败**\n"
             text += f"- ❌ 错误原因: {res['message']}\n\n"
@@ -219,7 +219,7 @@ def main():
             print(f"   签到天数: {result['days']}天 (连续 {result['consecutive_days']}天)")
             print(f"   每日排名: {result['rank']}")
             print(f"   本次获得蝌蚪: {result['current_bonus']}个")
-            print(f"   总蝌蚪数量: {result['total_bonus']:,.1f}个")
+            print(f"   总蝌蚪数量: {result['total_bonus']}个")
         else:
             print(f"❌ 账号 {idx}（{result['user']}）签到失败: {result['message']}")
         results.append(result)
