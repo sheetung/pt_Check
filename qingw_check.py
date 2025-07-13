@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+cron: 0 10 * * *
+new Env('青蛙站点签到');
+"""
 import os
 import requests
 import re

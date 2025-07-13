@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+cron: 0 9 * * *
+new Env('爱猫站点签到');
+"""
 import os
 import requests
 import re
